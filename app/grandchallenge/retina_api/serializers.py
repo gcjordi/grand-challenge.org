@@ -11,7 +11,7 @@ from grandchallenge.patients.serializers import PatientSerializer
 from grandchallenge.studies.models import Study
 
 
-class PILImageSerializer(serializers.BaseSerializer):
+class PILImageSerializer(serializers.Serializer):
     """
     Read-only serializer that returns a PIL image from a Image instance.
     If "width" and "height" are passed as extra serializer content, the
@@ -91,7 +91,7 @@ class TreeImageSerializer(TreeObjectSerializer):
     voxel_depth_mm = serializers.FloatField()
 
 
-class ImageLevelAnnotationsForImageSerializer(serializers.BaseSerializer):
+class ImageLevelAnnotationsForImageSerializer(serializers.Serializer):
     quality = serializers.UUIDField(allow_null=True)
     pathology = serializers.UUIDField(allow_null=True)
     retina_pathology = serializers.UUIDField(allow_null=True)

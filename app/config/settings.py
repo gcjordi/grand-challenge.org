@@ -376,6 +376,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",  # to allow api communication from subdomains
     "markdownx",  # for editing markdown
     "django_filters",
+    "drf_spectacular",
     # django-machina dependencies:
     "mptt",
     "haystack",
@@ -643,6 +644,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "grandchallenge.api.pagination.MaxLimit1000OffsetPagination",
     "PAGE_SIZE": 100,
     "UNAUTHENTICATED_USER": "guardian.utils.get_anonymous_user",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SWAGGER_SETTINGS = {
