@@ -52,7 +52,6 @@ django-simple-history = "*"
 sentry-sdk = "*"
 django-cors-headers = "*"
 pyvips = "*"
-drf-yasg = {version = "*", extras = ["validation"]}
 pydicom = "*"
 scikit-learn = "*"
 pandas = "*"
@@ -74,6 +73,7 @@ citeproc-py = "*"
 django-ipware = "*"
 pyswot = "*"
 django-redis = "*"
+drf-spectacular = "^0.11.1"
 
 [tool.poetry.dev-dependencies]
 pytest-django = "*"
