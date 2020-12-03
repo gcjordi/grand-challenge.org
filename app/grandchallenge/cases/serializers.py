@@ -3,7 +3,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField, SerializerMethodField
 from rest_framework.relations import HyperlinkedRelatedField, SlugRelatedField
 
-from grandchallenge.algorithms.models import AlgorithmImage
+from grandchallenge.algorithms.models import Algorithm
 from grandchallenge.archives.models import Archive
 from grandchallenge.cases.models import (
     Image,
