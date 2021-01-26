@@ -1,0 +1,33 @@
+{% extends "challenge.html" %}
+{% load crispy from crispy_forms_tags %}
+{% load url %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a
+                href="{% url 'challenges:list' %}">Challenges</a>
+        </li>
+        <li class="breadcrumb-item"><a
+                href="{{ challenge.get_absolute_url }}">{% firstof challenge.title challenge.short_name %}</a></li>
+        <li class="breadcrumb-item active"
+            aria-current="page">{{ object.title }} Add a New Phase</li>
+    </ol>
+{% endblock %}
+
+{# Do not show the footer as this is broken with SummernoteInplaceWidget #}
+{% block footer %}{% endblock %}
+
+{% block content %}
+
+    <h2>{% if object %}Update {{ object.title }} Phase{% else %}Add a New Phase{% endif %}</h2>
+
+    {% if not object %}
+        <p>
+            Use this form to create a new phase for your challenge with a separate evaluation method.
+            For instance, you could have a training and test phase, or have a phase for each task.
+        </p>
+    {% endif %}
+
+    {% crispy form %}
+
+{% endblock %}

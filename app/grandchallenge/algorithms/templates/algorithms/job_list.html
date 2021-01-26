@@ -1,0 +1,74 @@
+{% extends "datatables/list_base.html" %}
+{% load url %}
+{% load guardian_tags %}
+
+{% block title %}
+    Algorithm Results - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'algorithms:list' %}">Algorithms</a></li>
+        <li class="breadcrumb-item"><a href="{{ algorithm.get_absolute_url }}">{{ algorithm.title }}</a>
+        <li class="breadcrumb-item active" aria-current="page">Results</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h2>Results for {{ algorithm.title }}</h2>
+
+    {% get_obj_perms request.user for algorithm as "algorithm_perms" %}
+
+    {% if "execute_algorithm" in algorithm_perms and algorithm.latest_ready_image %}
+        <p>
+            <a class="btn btn-primary"
+               href="{% url 'algorithms:execution-session-create' slug=algorithm.slug %}">
+                <i class="fa fa-flask"></i> Try-out this algorithm
+            </a>
+        </p>
+    {% endif %}
+
+    {{ block.super }}
+
+    <div class="modal fade" id="resultInfoModal" tabindex="-1" role="dialog"
+         aria-labelledby="resultInfoModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-job-output"></p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="resultDetailLink" href="">
+                        <i class="fa fa-info-circle"></i> View Result Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        $('#resultInfoModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);
+            let modal = $(this);
+            const json_element = document.getElementById(button.data('pk'));
+            if (json_element) {
+                modal.find('.modal-job-output').html(JSON.parse(json_element.textContent));
+            } else {
+                modal.find('.modal-job-output').text(button.data('output'));
+            }
+            modal.find('.modal-title').text(button.data('title'));
+            modal.find('#resultDetailLink').attr("href", `${button.data("pk")}/`);
+        })
+    </script>
+{% endblock %}
