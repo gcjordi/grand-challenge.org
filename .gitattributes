@@ -1,3 +1,0 @@
-# Make file and sh should keep their line endings
-*.sh text=auto eol=lf
-Makefile text=auto eol=lf
